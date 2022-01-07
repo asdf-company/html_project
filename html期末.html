@@ -1,0 +1,243 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <title>web期末</title>
+
+    <style>
+        #color1 {
+            color: limegreen;
+            text-align: center;
+        }
+        #color2 {
+            color: lightgreen;
+            text-align: center;
+        }
+        #color3 {
+            color: red;
+            
+        }
+    </style>
+</head>
+<body>
+    <div class="jumbotron text-center" style="margin-bottom:0">
+      
+        <h1 id="color1" style="font-size: 50px; ">魔法學院叫號系統</h1>
+        <p id="color1">魔法叫號系統<small>屬於魔法學院時鐘塔阿爾斯多弗利卡教授財產，以盧恩式結構建構，斯布達學院提供。</small></p>
+    </div>
+    <nav class="navbar navbar-expand-sm bg-success navbar-dark">
+        <a class="navbar-brand" href="#">主頁</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">員工</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">教授</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">所有等待學員</a>
+                </li>
+                <li class="nav-item">
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">
+                        註冊
+                    </button>
+
+                    <!-- The Modal -->
+                    <div class="modal fade" id="myModal">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+
+                                <!-- Modal Header -->
+                                <div class="modal-header">
+                                    <h4 class="modal-title">註冊魔法學院帳號</h4>
+                                    
+                                    
+                                    <button type="button" class="close" data-dismiss="modal">×</button>
+                                </div>
+
+                                <!-- Modal body -->
+                                <div class="modal-body">
+                                    <p>請輸入名字、帳號、密碼</p>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-sm-8">
+                                                <form id="myForm" name="myForm">
+                                                    <div class="form-group">
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <label for="myAccout" class="input-group-text">名字</label>
+                                                            </div>
+                                                            <input type="text" id="myAccout" name="myAccout" class="form-control" />
+                                                        </div>
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <label for="myAccout" class="input-group-text">帳號</label>
+                                                            </div>
+                                                            <input type="text" id="myAccout" name="myAccout" class="form-control" />
+                                                        </div>
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <label for="myPwd" class="input-group-text">密碼</label>
+                                                            </div>
+                                                            <input type="text" id="myPwd" name="myPwd" class="form-control" />
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                                <button id="myBtn" type="button" class="btn btn-primary">登入</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <script>
+                                        $(function () {
+                                            let login = JSON.parse(localStorage.getItem('login'));
+                                            if (login != null) {
+                                                if (!!login.account) { //login有account屬性
+                                                    $('#myAccout').val(login.account);
+                                                }
+
+                                                if (!!login.pwd) { //login有pwd屬性
+                                                    $('#myPwd').val(login.pwd);
+
+                                                }
+                                            }
+                                        });
+
+                                        $('#myBtn').click(function () {
+                                            let login = {
+                                                'account': $('#myAccout').val(),
+                                                'pwd': $('#myPwd').val(),
+                                            };
+                                            localStorage.setItem('login', JSON.stringify(login));
+                                            alert('資料已儲存!');
+                                        });
+                                    </script>
+                                </div>
+
+                                <!-- Modal footer -->
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div div class="container" style="margin-top:30px">
+
+        <div class="row">
+            <div class="col-sm-4" style="background-color: limegreen;text-align:center;color:azure;">等待名單</div>
+            <div class="col-sm-8" style="background-color: lightgreen; text-align: center; color: azure; ">現在號碼</div>
+
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="container-fluid">
+
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>名字</th>
+                                <th>姓</th>
+                                <th id="color3">號碼</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Harry</td>
+                                <td>Potter</td>
+                                <td id="color3">69</td>
+                            </tr>
+                            <tr>
+                                <td>家豪</td>
+                                <td>張</td>
+                                <td id="color3">70</td>
+                            </tr>
+                            <tr>
+                                <td>Peter</td>
+                                <td>Parker</td>
+                                <td id="color3">71</td>
+                            </tr>
+                            <tr>
+                                <td>美麗</td>
+                                <td>珍</td>
+                                <td id="color3">72</td>
+                            </tr>
+                            <tr>
+                                <td>東海</td>
+                                <td>張</td>
+                                <td id="color3">73</td>
+                            </tr>
+                            <tr>
+                                <td>瑪莉</td>
+                                <td>陳</td>
+                                <td id="color3">74</td>
+                            </tr>
+                            <tr>
+                                <td>潘</td>
+                                <td>阿爾托利</td>
+                                <td id="color3">75</td>
+                            </tr>
+                            <tr>
+                                <td>lily</td>
+                                <td>May</td>
+                                <td id="color3">76</td>
+                            </tr>
+                            <tr>
+                                <td>山田</td>
+                                <td>暮春</td>
+                                <td id="color3">77</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3>更多資訊</h3>
+                <p>以下為更多連結</p>
+                <ul class="nav nav-pills flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">天體科</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">藥學科</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">死靈科</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">Disabled</a>
+                    </li>
+                </ul>
+                <hr class="d-sm-none">
+            </div>
+            <div class="col-sm-8">
+                <br>
+                <h1 style="text-align: center;"> <span class="badge badge-success" style="font-size: 200px;">68</span></h1>
+                <h5 style="text-align: center;">現在的號碼</h5>
+
+                <h1>面試教授</h1>
+                <h1 style="font-size: 70px; color: Highlight;">史特萊阿尼</h1>
+                <br>
+                <h1>助教</h1>
+                <h1 style="font-size: 70px; color: Highlight;">林春風</h1>
+                <br>
+                <p>請各位學員在面試前五分鐘到櫃檯報到</p>
+                <p>請勿在等候室抽菸喝酒，面試前請準備好資料及作品，若需要使用投影或全息影像請拿使用申請到櫃檯去登記，報告時間為20分鐘，10分鐘響一次鈴，全學院都禁止使用咒術、黑魔法、暗術等。請勿對教授不敬
+                </p>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
